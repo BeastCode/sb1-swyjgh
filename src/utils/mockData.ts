@@ -1,4 +1,16 @@
-import type { Feedback, FeedbackType, ImprovementType, FeedbackSeverity, FeedbackStatus } from '../types';
+import type { Feedback, FeedbackType, ImprovementType, FeedbackSeverity, FeedbackStatus, FeedbackAttachment } from '../types';
+
+const generateRandomAttachments = (): FeedbackAttachment[] | undefined => {
+  if (Math.random() > 0.7) return undefined; // 30% chance of having attachments
+
+  const attachmentCount = Math.floor(Math.random() * 2) + 1; // 1-2 attachments
+  return Array.from({ length: attachmentCount }, (_, index) => ({
+    type: Math.random() > 0.8 ? 'video' : 'image',
+    url: `https://source.unsplash.com/random/1200x800?bug,error,tech&sig=${Date.now()}-${index}`,
+    thumbnail: `https://source.unsplash.com/random/300x200?bug,error,tech&sig=${Date.now()}-${index}`,
+    title: `Screenshot ${index + 1}`,
+  }));
+};
 
 const generateRandomFeedback = (): Feedback => {
   const types: FeedbackType[] = ['error', 'bug', 'improvement'];
@@ -21,6 +33,7 @@ const generateRandomFeedback = (): Feedback => {
     timestamp: new Date(Date.now() - Math.random() * 86400000).toISOString(),
     status: statuses[Math.floor(Math.random() * statuses.length)],
     source: getRandomSource(),
+    attachments: generateRandomAttachments(),
   };
 };
 
