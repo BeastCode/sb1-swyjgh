@@ -3,6 +3,13 @@ export type ImprovementType = 'feature' | 'usability' | 'insight';
 export type FeedbackStatus = 'active' | 'acknowledged' | 'resolved';
 export type FeedbackSeverity = 'high' | 'medium' | 'low';
 
+export interface FeedbackAttachment {
+  type: 'image' | 'video';
+  url: string;
+  thumbnail?: string;
+  title: string;
+}
+
 export interface Feedback {
   id: string;
   title: string;
@@ -13,4 +20,5 @@ export interface Feedback {
   timestamp: string;
   status: FeedbackStatus;
   source: string;
+  attachments?: FeedbackAttachment[];
 }
