@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertCircle, Bug, Lightbulb, CheckCircle } from 'lucide-react';
+import { AlertCircle, Bug, Lightbulb, CheckCircle, Paperclip } from 'lucide-react';
 import type { Feedback } from '../types';
 
 const typeIcons = {
@@ -37,6 +37,7 @@ export function FeedbackList({ feedback, onAcknowledge, onSelectFeedback }: Feed
             <th className="p-4 hidden md:table-cell">Source</th>
             <th className="p-4">Status</th>
             <th className="p-4 hidden md:table-cell">Time</th>
+            <th className="p-4 hidden md:table-cell">Attachments</th>
             <th className="p-4">Actions</th>
           </tr>
         </thead>
@@ -76,6 +77,14 @@ export function FeedbackList({ feedback, onAcknowledge, onSelectFeedback }: Feed
                 </td>
                 <td className="p-4 hidden md:table-cell">
                   {new Date(item.timestamp).toLocaleString()}
+                </td>
+                <td className="p-4 hidden md:table-cell">
+                  {item.attachments && item.attachments.length > 0 && (
+                    <div className="flex items-center gap-1 text-slate-400">
+                      <Paperclip size={16} />
+                      <span className="text-sm">{item.attachments.length}</span>
+                    </div>
+                  )}
                 </td>
                 <td className="p-4">
                   {item.status === 'active' && (
